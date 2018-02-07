@@ -14,7 +14,8 @@ void setup()
 {
 	Serial.begin(57600); 
 	Serial.println("program started.");
-	packet.debug([](char *s) {
+	packet.setName("Nat");
+	packet.debug([](const char *s) {
 		Serial.print(s); 
 	});
 	packet.dump();

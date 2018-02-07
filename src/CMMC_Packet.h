@@ -21,7 +21,7 @@ typedef struct __attribute((__packed__)) {
   uint32_t field5 = 0x00; // controller working time
   uint32_t field6 = 0x00; // DEFAULT_SLEEP_TIME_M
   uint8_t nameLen = 0x00;
-  char myName[16];
+  char sensorName[16];
   uint32_t ms = 0;
   uint32_t sent_ms = 0;
   uint32_t sum = 0;
@@ -32,6 +32,8 @@ typedef struct __attribute((__packed__)) {
   uint8_t version = 1;
   uint8_t project = 1;
   uint8_t reserved[4]= {0xff,0xff,0xff,0xff};
+  uint8_t nameLen = 0x00;
+  char myName[16];
   uint32_t sleepTime;
   uint32_t ms;
   CMMC_SENSOR_T data;
@@ -62,6 +64,8 @@ class CMMC_Packet
         this->_packet.header[1] = header[1];
         this->_packet.tail[0] = footer[0];
         this->_packet.tail[1] = footer[1];
+
+        this->_packet.ms = millis();
         // auto blank = [](const char* message) {}; 
       } 
       ~CMMC_Packet() {} 
@@ -87,7 +91,31 @@ class CMMC_Packet
             USER_DEBUG_PRINTF("%02x ", data[i]);
           }
           USER_DEBUG_PRINTF("\n");
-      } 
+      }
+
+      bool setSensorName(const char name[16]) {
+        int len = strlen(name);
+        if (len > 15) {
+          return false; 
+        }
+        else {
+          strcpy(this->_packet.data.sensorName, name);
+          this->_packet.data.nameLen = strlen(name); 
+        } 
+        return true;
+      }
+
+      bool setName(const char name[16]) {
+        int len = strlen(name);
+        if (len > 15) {
+          return false; 
+        }
+        else {
+          strcpy(this->_packet.myName, name);
+          this->_packet.nameLen = strlen(name); 
+        } 
+        return true;
+      }
       void debug(cmmc_debug_cb_t); 
     private:
       char debug_buffer[DEBUG_BUFFER_SIZE];
