@@ -7,6 +7,7 @@
 #######################################
 CMMC_PACKET_T 					KEYWORD1
 CMMC_SENSOR_T 					KEYWORD1
+CMMC_Packet						KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
