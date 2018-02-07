@@ -1,3 +1,5 @@
+#define HEX_STRING_BUFFER_SIZE 500
+
 #include <Arduino.h>
 #include <CMMC_Packet.h>
 
@@ -15,13 +17,17 @@ void setup()
 	Serial.begin(57600); 
 	Serial.println("program started.");
 	packet.setName("Nat");
+	packet.setSensorName("AAA");
+	packet.updatePacketSum();
 	packet.debug([](const char *s) {
 		Serial.print(s); 
 	});
-	packet.dump();
 
-	// packet
-	// CMMC_PACKET_T *ptr = packet.getPacketPtr();
+	const char* hexString = packet.getHexString();
+	Serial.println("hexString: ");
+	Serial.println(hexString);
+
+	CMMC_PACKET_T *ptr = packet.getPacketPtr();
 }
 
 void loop()
