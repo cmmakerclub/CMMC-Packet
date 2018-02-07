@@ -14,20 +14,19 @@ CMMC_Packet packet(PROJECT, VERSION, header, tail);
 
 void setup()
 {
-	Serial.begin(57600); 
-	Serial.println("program started.");
-	packet.setName("Nat");
-	packet.setSensorName("AAA");
-	packet.updatePacketSum();
-	packet.debug([](const char *s) {
-		Serial.print(s); 
-	});
+  Serial.begin(57600);
+  Serial.println("program started.");
+  packet.setName("Nat");
+  packet.setSensorName("AAA");
+  packet.updatePacketSum();
+  packet.debug([](const char *s) {
+    Serial.print(s);
+  });
 
-	const char* hexString = packet.getHexString();
-	Serial.println("hexString: ");
-	Serial.println(hexString);
-
-	CMMC_PACKET_T *ptr = packet.getPacketPtr();
+  const char* hexString = packet.getHexString();
+  Serial.print("hexString: ");
+  Serial.println(hexString);
+  CMMC_PACKET_T *ptr = packet.getPacketPtr();
 }
 
 void loop()

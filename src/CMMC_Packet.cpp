@@ -83,7 +83,6 @@ bool CMMC_Packet::setName(const char name[16]) {
     return false;
   }
   else {
-    
     strcpy(this->_packet.myName, name);
     this->_packet.nameLen = strlen(name);
   }

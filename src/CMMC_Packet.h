@@ -22,12 +22,12 @@ typedef struct __attribute((__packed__)) {
   uint8_t to[6];
   uint8_t type = 0;
   uint32_t battery = 0x00;
-  uint32_t field1 = 0x00; //distance cm
-  uint32_t field2 = 0x00; // retries
+  uint32_t field1 = 0x00;
+  uint32_t field2 = 0x00;
   uint32_t field3 = 0x00;
   uint32_t field4 = 0x00;
-  uint32_t field5 = 0x00; // controller working time
-  uint32_t field6 = 0x00; // DEFAULT_SLEEP_TIME_M
+  uint32_t field5 = 0x00;
+  uint32_t field6 = 0x00;
   uint8_t nameLen = 0x00;
   char sensorName[16];
   uint32_t ms = 0;
@@ -46,20 +46,12 @@ typedef struct __attribute((__packed__)) {
   uint32_t ms;
   CMMC_SENSOR_T data;
   uint32_t sum;
-  uint8_t tail[2] = {0x00, 0x00};
+  uint8_t tail[2] = {0x0d, 0x0a};
 } CMMC_PACKET_T;
 
 #ifndef CMMC_NO_ALIAS
 #define CMMC_Packet CMMC_Packet
-#endif
-
-// #ifdef ESP8266
-//   extern "C" {
-//     #include "user_interface.h"
-//   }
-//   #include "ESP8266WiFi.h"
-//   #include <functional>
-// #endif
+#endif 
 
 typedef void (*cmmc_debug_cb_t)(const char* message);
 
@@ -69,7 +61,6 @@ class CMMC_Packet
     // constructor
     CMMC_Packet(uint8_t project, uint8_t version, uint8_t header[2], uint8_t footer[2]);
     ~CMMC_Packet(); 
-
     void init();
     const char* getHexString(); 
     void toHexString(const u8 array[], size_t len, char buffer[]); 
