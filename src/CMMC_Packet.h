@@ -58,12 +58,12 @@ class CMMC_Packet
       
       void init();
       const CMMC_PACKET_T* getPacketPtr() {
-        return &this->packet;
+        return &this->_packet;
       }
       void debug(cmmc_debug_cb_t);
     private:
-      CMMC_SENSOR_T *sensorPtr;
-      CMMC_PACKET_T packet;
+      CMMC_SENSOR_T *_sensorPtr;
+      CMMC_PACKET_T _packet;
       cmmc_debug_cb_t _user_debug_cb;
 
 };
