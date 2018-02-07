@@ -3,6 +3,15 @@
 
 #include <Arduino.h>
 
+#include <Arduino.h>
+
+typedef struct __attribute((__packed__)) {
+  uint16_t battery;
+  uint32_t field1;
+  uint32_t field2;
+  uint32_t field3;
+  uint32_t field4;
+} CMMC_SENSOR_T;
 
 #ifndef CMMC_NO_ALIAS
   #define CMMC_Packet CMMC_Packet
