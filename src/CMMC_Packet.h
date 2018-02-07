@@ -3,6 +3,13 @@
 
 #include <Arduino.h>
 
+
+#define DEBUG_BUFFER_SIZE 500
+#define USER_DEBUG_PRINTF(fmt, args...) { \
+    sprintf(this->debug_buffer, fmt, ## args); \
+    _user_debug_cb(this->debug_buffer); \
+} 
+
 typedef struct __attribute((__packed__)) {
   uint8_t from[6];
   uint8_t to[6];
@@ -60,12 +67,25 @@ class CMMC_Packet
       const CMMC_PACKET_T* getPacketPtr() {
         return &this->_packet;
       }
-      void debug(cmmc_debug_cb_t);
+      uint32_t checksum(uint8_t* data, size_t len) {
+        uint32_t sum = 0;
+          while(len--) {
+            sum += *(data++);
+          }
+          return sum;
+        } 
+        void dump(const u8* data, size_t size) {
+            for (size_t i = 0; i < size; i++) {
+              USER_DEBUG_PRINTF("%02x ", data[i]);
+            }
+            Serial.println();
+        } 
+      void debug(cmmc_debug_cb_t); 
     private:
+      char debug_buffer[DEBUG_BUFFER_SIZE];
       CMMC_SENSOR_T *_sensorPtr;
       CMMC_PACKET_T _packet;
       cmmc_debug_cb_t _user_debug_cb;
-
 };
 
 #endif //CMMC_Packet_H
