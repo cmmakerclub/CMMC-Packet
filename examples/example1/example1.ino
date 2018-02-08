@@ -26,7 +26,7 @@ void setup()
   const char* hexString = packet.getHexString();
   Serial.print("hexString: ");
   Serial.println(hexString);
-  CMMC_PACKET_T *ptr = packet.getPacketPtr();
+  const CMMC_PACKET_T *ptr = packet.getPacketPtr();
 }
 
 void loop()

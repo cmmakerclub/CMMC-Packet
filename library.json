@@ -1,0 +1,12 @@
+
+{
+	"name": "CMMC Packet",
+	"keywords": "Packet, UDP, binary packet",
+	"description": "CMMC Packet is a smally and simple binary Packet library",
+	"repository": {
+	"type": "git",
+	"url": "https://github.com/cmmakerclub/CMMC-Packet.git"
+},
+	"frameworks": "arduino",
+	"platforms": "espressif"
+}
