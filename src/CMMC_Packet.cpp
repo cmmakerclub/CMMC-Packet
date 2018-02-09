@@ -19,10 +19,11 @@ CMMC_Packet::CMMC_Packet(uint8_t project, uint8_t version, uint8_t header[2], ui
 }
 CMMC_Packet::~CMMC_Packet() {}
 
-const char* CMMC_Packet::getHexString() {
-  toHexString((u8*)&this->_packet, sizeof(this->_packet), this->_hexStringBuffer) ;
-  return this->_hexStringBuffer;
-}
+// const char* CMMC_Packet::getHexString() {
+//   // toHexString((u8*)&this->_packet, sizeof(this->_packet), this->_hexStringBuffer) ;
+//   // return this->_hexStringBuffer;
+//   return 0;
+// }
 
 void CMMC_Packet::toHexString(const u8 array[], size_t len, char buffer[])
 {
@@ -49,7 +50,7 @@ uint32_t CMMC_Packet::checksum(uint8_t* data, size_t len) {
 }
 
 void CMMC_Packet::dump() {
-  this->dump((u8*)&this->_packet, sizeof(this->_packet));
+  CMMC_Packet::dump((u8*)&this->_packet, sizeof(this->_packet));
 }
 
 void CMMC_Packet::updatePacketSum() {

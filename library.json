@@ -8,6 +8,6 @@
 		"url": "https://github.com/cmmakerclub/CMMC-Packet.git"
 	},
 	"frameworks": "arduino",
-	"platforms": "espressif",
-	"version": "1.0.0"
+	"platforms": "espressif,atmelavr",
+	"version": "1.0.1"
 }

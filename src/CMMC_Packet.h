@@ -4,18 +4,18 @@
 #include <Arduino.h>
 
 #ifndef DEBUG_BUFFER_SIZE
-  #define DEBUG_BUFFER_SIZE 200
+  #define DEBUG_BUFFER_SIZE 64
 #endif
 
-#ifndef HEX_STRING_BUFFER_SIZE 
-  #define HEX_STRING_BUFFER_SIZE 1025
-#endif
+// #ifndef HEX_STRING_BUFFER_SIZE 
+//   #define HEX_STRING_BUFFER_SIZE 1025
+// #endif
 
 
 #define USER_DEBUG_PRINTF(fmt, args...) { \
     sprintf(this->debug_buffer, fmt, ## args); \
     _user_debug_cb(this->debug_buffer); \
-  }
+}
 
 typedef struct __attribute((__packed__)) {
   uint8_t from[6];
@@ -62,23 +62,25 @@ class CMMC_Packet
     CMMC_Packet(uint8_t project, uint8_t version, uint8_t header[2], uint8_t footer[2]);
     ~CMMC_Packet(); 
     void init();
-    const char* getHexString(); 
-    void toHexString(const u8 array[], size_t len, char buffer[]); 
+    // const char* getHexString(); 
+    static void toHexString(const u8 array[], size_t len, char buffer[]); 
     const CMMC_PACKET_T* getPacketPtr(); 
     uint32_t checksum(uint8_t* data, size_t len); 
-    void dump(); 
     void updatePacketSum(); 
+    void dump(); 
     void dump(const u8* data, size_t size);
-
     bool setSensorName(const char name[16]);
     bool setName(const char name[16]);
     void debug(cmmc_debug_cb_t);
+    size_t size() {
+      return sizeof(CMMC_PACKET_T);
+    }
   private:
+    Stream *DEBUG_STREAM = 0;
     char debug_buffer[DEBUG_BUFFER_SIZE];
-    CMMC_SENSOR_T *_sensorPtr;
     CMMC_PACKET_T _packet;
+    CMMC_SENSOR_T *_sensorPtr;
     cmmc_debug_cb_t _user_debug_cb;
-    char _hexStringBuffer[HEX_STRING_BUFFER_SIZE];
 };
 
 #endif //CMMC_Packet_H
